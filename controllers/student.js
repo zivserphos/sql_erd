@@ -27,4 +27,17 @@ const addNewStudent = (req, res, next) => {
   }
 };
 
-module.exports = { getStudentByID, addNewStudent };
+const removeStudent = (req, res, next) => {
+  const { id } = req.params;
+  const sql = `DELETE FROM student where id = ${id}`;
+  try {
+    client.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send(JSON.stringify(result));
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { getStudentByID, addNewStudent, removeStudent };
